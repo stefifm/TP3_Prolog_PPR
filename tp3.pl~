@@ -1,0 +1,32 @@
+%Hechos
+
+%Rasonmware
+ransomware(1,'Grandcrab',78.5,fecha(10,1,2020),[enero,febrero,marzo,abril]).
+ransomware(2,'Babuk',7.61,fecha(5,7,2020),[julio,agosto]).
+ransomware(3,'Cerber',3.11,fecha(20,1,2020),[enero,febrero,diciembre]).
+ransomware(4,'Matsnu',2.63,fecha(3,4,2020),[abril,octubre]).
+ransomware(5,'Wannacry',2.41,fecha(29,6,2020),[junio,septiembre]).
+ransomware(6,'Congur',1.52,fecha(5,7,2020),[julio]).
+ransomware(7,'Locky',1.29,fecha(12,5,2020),[mayo,diciembre]).
+ransomware(8,'Teslacrypt',1.12,fecha(4,11,2020),[noviembre,diciembre]).
+ransomware(9,'Rkor',1.11,fecha(10,3,2020),[marzo,mayo]).
+ransomware(10,'Reveton',0.70,fecha(29,8,2020),[agosto]).
+
+%tipo de archivos
+archivo(1,'Pe').
+archivo(2,'Android').
+archivo(3,'Dll').
+archivo(4,'Gzip').
+archivo(5,'Javascript').
+
+%Troyanos
+troyano('Emotet',true,1,[2,3,4]).
+troyano('Ezbot',false,3,[6,1,10,2]).
+troyano('Edridex',false,5,[9,5,3]).
+troyano('Egozi',true,4,[7,10,4]).
+troyano('Edanabot',true,2,[8,1,5]).
+
+%Reglas
+p1(R,M,A) :- ransomware(_,R,_,fecha(_,M,A),Lis), member(diciembre, Lis).
+p2(R,Malware,Archivo) :- ransomware(N,R,_,_,_), archivo(Id,Archivo) ,troyano(Malware,_,Id,Lista), member(N, Lista).
+p3(L) :- findall(R, ( ransomware(_,R,_,fecha(_,M,_),_), M>=3), L).
